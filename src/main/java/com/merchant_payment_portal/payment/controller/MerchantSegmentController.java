@@ -32,7 +32,7 @@ public class MerchantSegmentController {
     }
     //save merchant
     @PostMapping
-    public MerchantSegment createMerchantSegment(MerchantSegment merchantSegment){
+    public MerchantSegment createMerchantSegment(@RequestBody MerchantSegment merchantSegment){
         return merchantSegmentService.saveMerchantSegment(merchantSegment);
     }
     //delete merchant

@@ -28,4 +28,5 @@ public class Merchant {
     @JoinColumn(name="segment_id")
     private MerchantSegment merchantSegment;
 
+
 }
