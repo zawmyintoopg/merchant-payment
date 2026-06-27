@@ -10,6 +10,8 @@ import com.merchant_payment_portal.payment.repository.MerchantSegmentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class MerchantServiceImpl implements MerchantService{
@@ -41,6 +43,23 @@ public class MerchantServiceImpl implements MerchantService{
         return mapToResponse(savedMerchant);
 
     }
+    @Override
+    public List<MerchantResponse> getAllMerchants() {
+
+        List<Merchant> merchants = merchantRepository.findAll();
+
+        return merchants.stream()
+                .map(this::mapToResponse)
+                .toList();
+    }
+    @Override
+    public MerchantResponse getMerchantById(Long id) {
+
+        Merchant merchant = merchantRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Merchant not found"));
+
+        return mapToResponse(merchant);
+    }
     private MerchantResponse mapToResponse(Merchant successMerchant){
 
         // map entity -> response DTo
@@ -54,6 +73,32 @@ public class MerchantServiceImpl implements MerchantService{
                 successMerchant.getBankAccountNumber(),
                 successMerchant.getMerchantSegment().getSegmentName()
         );
+    }
+    @Override
+    public MerchantResponse updateMerchant(Long id, MerchantRequest request) {
+
+        Merchant merchant = merchantRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Merchant not found"));
+
+        merchant.setMerchantNumber(request.getMerchantNumber());
+        merchant.setMerchantName(request.getMerchantName());
+        merchant.setMerchantRegDate(request.getMerchantRegDate());
+        merchant.setMerchantType(request.getMerchantType());
+        merchant.setMerchantStatus(request.getMerchantStatus());
+        merchant.setBankAccountNumber(request.getBankAccountNumber());
+
+        Merchant updated = merchantRepository.save(merchant);
+
+        return mapToResponse(updated);
+    }
+
+    @Override
+    public void deleteMerchant(Long id) {
+
+        Merchant merchant = merchantRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Merchant not found"));
+
+        merchantRepository.delete(merchant);
     }
 
 }

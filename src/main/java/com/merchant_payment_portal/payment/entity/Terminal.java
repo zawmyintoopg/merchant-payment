@@ -1,8 +1,8 @@
 package com.merchant_payment_portal.payment.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.*;
-import org.springframework.web.bind.annotation.Mapping;
+
 
 @Entity
 @Table(name="terminal")
