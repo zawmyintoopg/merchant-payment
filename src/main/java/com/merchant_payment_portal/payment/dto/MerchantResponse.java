@@ -1,68 +1,48 @@
-package com.merchant_payment_portal.payment.entity;
+package com.merchant_payment_portal.payment.dto;
 
-import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
-@Entity
-@Table(name="merchant")
-public class Merchant {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class MerchantResponse {
     private Long id;
-    @NotBlank(message = "Merchant Number is Required")
-    @Column(name = "merchant_number",unique = true,nullable = false)
-    @Size(max=20,message = "Merchant Number Can not greater than 20")
     private String merchantNumber;
-    @NotBlank(message = "Merchant Name is Required")
-    @Column(name = "merchant_name",nullable = false)
     private String merchantName;
-    @NotNull(message = "Merchant Registration is Required")
-    @Column(name = "merchant_reg_date",nullable = false)
     private LocalDate merchantRegDate;
-    @NotBlank(message = "Merchant Type is Required")
-    @Column(name = "merchant_type",nullable = false)
     private String merchantType;
-    @NotBlank(message = "Merchant Status is Required")
-    @Column(name = "merchant_status",nullable = false)
     private String merchantStatus;
-    @NotBlank(message = "Merchant Account Number is Required")
-    @Column(name = "bank_account_number",nullable = false)
     private String bankAccountNumber;
-    @NotBlank(message = "Merchant Segment is Required")
-    @ManyToOne
-    @JoinColumn(name="segment_id",nullable = false)
-    private MerchantSegment merchantSegment;
-    private LocalDateTime created_at;
-    private LocalDateTime updated_at;
-    public Merchant(){
+    private String segmentName;
+    public MerchantResponse(){
 
     }
-    public Merchant(
-     String merchantNumber,
-     String merchantName,
-    LocalDate merchantRegDate,
-    String merchantType,
-    String merchantStatus,
-     String bankAccountNumber
-    , MerchantSegment merchantSegment){
+    public MerchantResponse(
+            Long id,
+            String merchantNumber,
+            String merchantName,
+            LocalDate merchantRegDate,
+            String merchantType,
+            String merchantStatus,
+            String bankAccountNumber
+            , String segmentName){
+        this.id = id;
         this.merchantNumber = merchantNumber;
         this.merchantName = merchantName;
         this.merchantRegDate = merchantRegDate;
         this.merchantType = merchantType;
         this.merchantStatus = merchantStatus;
         this.bankAccountNumber = bankAccountNumber;
-        this.merchantSegment = merchantSegment;
+        this.segmentName = segmentName;
     }
 
-    public Long getId(){
+    public Long getId() {
         return id;
     }
-
+    public void setId(Long id) {
+        this.id = id;
+    }
     public String getMerchantNumber(){
         return merchantNumber;
     }
@@ -99,10 +79,10 @@ public class Merchant {
     public void setBankAccountNumber(String  bankAccountNumber){
         this.bankAccountNumber = bankAccountNumber;
     }
-    public MerchantSegment getMerchantSegment(){
-        return merchantSegment;
+    public String getSegmentName(){
+        return segmentName;
     }
-    public void setMerchantSegment(MerchantSegment merchantSegment){
-        this.merchantSegment = merchantSegment;
+    public void setSegmentName(String  segmentName){
+        this.segmentName = segmentName;
     }
 }
