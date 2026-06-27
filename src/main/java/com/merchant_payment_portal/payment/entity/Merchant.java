@@ -1,12 +1,10 @@
 package com.merchant_payment_portal.payment.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import org.springframework.web.bind.annotation.Mapping;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name="merchant")
@@ -14,95 +12,20 @@ public class Merchant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank(message = "Merchant Number is Required")
-    @Column(name = "merchant_number",unique = true,nullable = false)
-    @Size(max=20,message = "Merchant Number Can not greater than 20")
+    @Column(name = "merchant_number")
     private String merchantNumber;
-    @NotBlank(message = "Merchant Name is Required")
-    @Column(name = "merchant_name",nullable = false)
+    @Column(name = "merchant_name")
     private String merchantName;
-    @NotNull(message = "Merchant Registration is Required")
-    @Column(name = "merchant_reg_date",nullable = false)
+    @Column(name = "merchant_reg_date")
     private LocalDate merchantRegDate;
-    @NotBlank(message = "Merchant Type is Required")
-    @Column(name = "merchant_type",nullable = false)
+    @Column(name = "merchant_type")
     private String merchantType;
-    @NotBlank(message = "Merchant Status is Required")
-    @Column(name = "merchant_status",nullable = false)
-    private String merchantStatus;
-    @NotBlank(message = "Merchant Account Number is Required")
-    @Column(name = "bank_account_number",nullable = false)
-    private String bankAccountNumber;
-    @NotBlank(message = "Merchant Segment is Required")
+    @Column(name = "merchant_status")
+    private String mechantStatus;
+    @Column(name = "account_number")
+    private String accountNumber;
     @ManyToOne
-    @JoinColumn(name="segment_id",nullable = false)
+    @JoinColumn(name="segment_id")
     private MerchantSegment merchantSegment;
-    private LocalDateTime created_at;
-    private LocalDateTime updated_at;
-    public Merchant(){
 
-    }
-    public Merchant(
-     String merchantNumber,
-     String merchantName,
-    LocalDate merchantRegDate,
-    String merchantType,
-    String merchantStatus,
-     String bankAccountNumber
-    , MerchantSegment merchantSegment){
-        this.merchantNumber = merchantNumber;
-        this.merchantName = merchantName;
-        this.merchantRegDate = merchantRegDate;
-        this.merchantType = merchantType;
-        this.merchantStatus = merchantStatus;
-        this.bankAccountNumber = bankAccountNumber;
-        this.merchantSegment = merchantSegment;
-    }
-
-    public Long getId(){
-        return id;
-    }
-
-    public String getMerchantNumber(){
-        return merchantNumber;
-    }
-    public void setMerchantNumber(String merchantNumber){
-        this.merchantNumber= merchantNumber;
-    }
-    public String getMerchantName(){
-        return merchantName;
-    }
-    public void setMerchantName(String merchantName){
-        this.merchantName = merchantName;
-    }
-    public LocalDate getMerchantRegDate(){
-        return merchantRegDate;
-    }
-    public void setMerchantRegDate(LocalDate merchantRegDate){
-        this.merchantRegDate = merchantRegDate;
-    }
-    public String getMerchantType(){
-        return merchantType;
-    }
-    public void setMerchantType(String  merchantType){
-        this.merchantType = merchantType;
-    }
-    public String getMerchantStatus(){
-        return merchantStatus;
-    }
-    public void setMerchantStatus(String  merchantStatus){
-        this.merchantStatus = merchantStatus;
-    }
-    public String getBankAccountNumber(){
-        return bankAccountNumber;
-    }
-    public void setBankAccountNumber(String  bankAccountNumber){
-        this.bankAccountNumber = bankAccountNumber;
-    }
-    public MerchantSegment getMerchantSegment(){
-        return merchantSegment;
-    }
-    public void setMerchantSegment(MerchantSegment merchantSegment){
-        this.merchantSegment = merchantSegment;
-    }
 }

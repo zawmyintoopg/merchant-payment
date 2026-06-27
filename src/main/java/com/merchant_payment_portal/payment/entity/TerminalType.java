@@ -3,17 +3,14 @@ package com.merchant_payment_portal.payment.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="terminal_type")
-public class TerminalType{
+@Table(name="terminaltype")
+public class TerminalType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name ="terminal_type_name")
     private String terminalTypeName;
     private String status;
-    public TerminalType(){
 
-    }
     public TerminalType(String terminalTypeName, String status){
         this.terminalTypeName = terminalTypeName;
         this.status = status;
